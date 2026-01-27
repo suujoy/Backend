@@ -1,53 +1,37 @@
 const app = require("./src/app");
 
-const notes = [];
+const bio = [];
 
-// POST /notes
-app.post("/notes", (req, res) => {
-    notes.push(req.body);
+app.post("/bio", (req, res) => {
+    bio.push(req.body);
 
-    res.status(201).json({
-        massage: "Notes Created Successfully",
+    res.status(200).json({
+        massage: "Bio Creation Success",
     });
 });
 
-// GET /notes
-app.get("/notes", (req, res) => {
+app.get("/bio", (req, res) => {
     res.status(200).json({
-        notes: notes,
+        bio: bio,
     });
 });
 
-// Delete /notes
 
-app.delete('/notes/:index',(req,res)=>{
-    delete notes[req.params.index]
+app.delete('/bio/:index',(req,res)=>{
+    delete bio[req.params.index]
 
-    res.status(204).json({
-        massage:"Note Deleted successfully"
+    res.status(200).json({
+        massage:'Bio Deleted successfully'
     })
 })
 
-// PATCH /notes/:index
-
-app.patch('/notes/:index',(req,res)=>{
-    notes[req.params.index].name=req.body.name
-
+app.patch('/bio/:index',(req,res)=>{
+    bio[req.params.index].name=req.body.name;
     res.status(200).json({
-        massage:'Note Updated Successfully'
-    })
-})
-
-// PUT /notes
-
-app.put('/notes/:index',(req,res)=>{
-    notes[req.params.index] = req.body
-
-    res.status(200).json({
-        massage:'Note Modified Successfully'
+        massage:'Bio name updated successfully'
     })
 })
 
 app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+    console.log("Hello Guys I am under the water form prot 3000");
 });
