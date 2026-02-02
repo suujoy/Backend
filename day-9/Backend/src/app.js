@@ -64,6 +64,7 @@ app.delete("/api/notes/:id", async (req, res) => {
 app.patch("/api/notes/:id", async (req, res) => {
     const id = req.params.id;
     const { description } = req.body;
+    console.log('Sujoy')
 
     await noteModel.findByIdAndUpdate(id, { description });
     res.status(200).json({
