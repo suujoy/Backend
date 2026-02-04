@@ -5,6 +5,7 @@ const noteScema = new mongoose.Schema({
     description: String,
     age:Number,
 });
+console.log('hello')
 
 const noteModel = mongoose.model("notes", noteScema);
 
