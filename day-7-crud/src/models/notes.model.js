@@ -6,6 +6,7 @@ const noteScema = new mongoose.Schema({
     age:Number,
 });
 console.log('hello')
+console.log('hello')
 
 const noteModel = mongoose.model("notes", noteScema);
 
