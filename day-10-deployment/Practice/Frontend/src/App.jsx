@@ -13,6 +13,7 @@ const App = () => {
 
         setNote(data.note);
     };
+    console.log('2+1')
 
     useEffect(() => {
         getNotes();
