@@ -7,6 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+console.log('object')
+
 app.post("/api/notes", (req, res) => {
     const { title, description, age } = req.body;
 
