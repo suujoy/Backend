@@ -11,7 +11,7 @@ const App = () => {
     const [age, setAge] = useState("");
 
     const getNotes = async () => {
-        const { data } = await axios.get("http://localhost:3000/api/notes");
+        const { data } = await axios.get("https://backend-2-dj6c.onrender.com//api/notes");
 
         setNotes(data.note);
     };
@@ -25,11 +25,11 @@ const App = () => {
 
         if (editId) {
             const res = await axios.patch(
-                "http://localhost:3000/api/notes/" + editId,
+                "https://backend-2-dj6c.onrender.com//api/notes/" + editId,
                 { title, description, age },
             );
         } else {
-            const res = await axios.post("http://localhost:3000/api/notes", {
+            const res = await axios.post("https://backend-2-dj6c.onrender.com//api/notes", {
                 title,
                 description,
                 age,
@@ -54,7 +54,7 @@ const App = () => {
 
     const handelDelete = async (noteId) => {
         const res = await axios.delete(
-            "http://localhost:3000/api/notes/" + noteId,
+            "https://backend-2-dj6c.onrender.com//api/notes/" + noteId,
         );
         getNotes();
     };
