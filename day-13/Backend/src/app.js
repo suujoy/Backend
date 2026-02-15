@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 
 const noteModel = require("./models/note.model");
 const cors = require("cors");
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('./public'))
 
 //Post
 app.post("/api/notes", async (req, res) => {
@@ -57,5 +59,9 @@ app.patch("/api/notes/:id", async (req, res) => {
         age,
     });
 });
+
+app.use('*name',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../public/index.html'))
+})
 
 module.exports = app;
