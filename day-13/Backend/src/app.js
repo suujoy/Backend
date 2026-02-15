@@ -60,7 +60,7 @@ app.patch("/api/notes/:id", async (req, res) => {
     });
 });
 
-app.use("*name", (req, res) => {
+app.get("*name", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
