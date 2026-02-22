@@ -25,6 +25,18 @@ const userSchema = new mongoose.Schema(
             default:
                 "https://ik.imagekit.io/teim9v6vi/default%20profile%20image.webp",
         },
+        followers: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
+        following: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
     },
     { timestamps: true },
 );

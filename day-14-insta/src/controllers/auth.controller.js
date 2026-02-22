@@ -50,6 +50,7 @@ const registerController = async (req, res) => {
         {
             id: user._id,
             email: user.email,
+            username: user.username,
         },
         process.env.JWT_SECRET,
     );
@@ -115,6 +116,7 @@ const loginController = async (req, res) => {
         {
             id: user._id,
             email: user.email,
+            username: user.username,
         },
         process.env.JWT_SECRET,
     );
