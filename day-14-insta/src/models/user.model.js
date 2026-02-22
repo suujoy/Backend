@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-            unique: true,
+            unique: [true, "UserName Must be Unique"],
         },
         email: {
             type: String,
             required: true,
-            unique: true,
+            unique: [true, "Email Must be unique to create a new user"],
         },
         password: {
             type: String,
@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema(
         },
         profileImage: {
             type: String,
-            default: "",
+            default:
+                "https://ik.imagekit.io/teim9v6vi/default%20profile%20image.webp",
         },
     },
     { timestamps: true },
