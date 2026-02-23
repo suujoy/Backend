@@ -2,8 +2,19 @@ const mongoose = require("mongoose");
 
 const followSchema = new mongoose.Schema(
     {
-        follower: String,
-        followee: String,
+        follower: {
+            type: String,
+        },
+        followee: {
+            type: String,
+        },
+        status: {
+            type: String,
+            default: "pending",
+            enum: {
+                values: ["pending", "accepted", "rejected"],
+            },
+        },
     },
     { timestamps: true },
 );

@@ -5,6 +5,9 @@ const followUserController = async (req, res) => {
     /**
      * Getting followee username and follower username
      */
+    /**
+     * The person who is loggedin is sender/follower
+     */
 
     const followerUsername = req.user.username;
     const followeeUsername = req.params.username;
@@ -95,4 +98,76 @@ const unfollowUserController = async (req, res) => {
     });
 };
 
-module.exports = { followUserController,unfollowUserController };
+/**
+ * AcceptController
+ */
+
+const followAcceptController = async (req, res) => {
+    /**
+     * The person who is loggedin is recever
+     */
+
+    const followeeUsername = req.user.username; //receiver
+    const followerUsername = req.params.username; //sender
+
+    const isFollowReqExist = await followModel.findOne({
+        followee: followeeUsername,
+        follower: followerUsername,
+        status: "pending",
+    });
+
+    if (!isFollowReqExist) {
+        return res.status(400).json({
+            message: "no pending request found",
+        });
+    }
+
+    const status = await followModel.findByIdAndUpdate(
+        isFollowReqExist._id,
+        {
+            status: "accepted",
+        },
+        { new: true },
+    );
+
+    res.status(200).json({ message: "Follow request accepted", status });
+};
+
+const followRejectController = async (req, res) => {
+    /**
+     * Who is loggin is the receiver
+     */
+
+    const followerUsername = req.params.username; //sender
+    const followeeUsername = req.user.username; //receiver
+
+    const isFollowReqExist = await followModel.findOne({
+        follower: followerUsername,
+        followee: followeeUsername,
+        status: "accepted",
+    });
+
+    if (!isFollowReqExist) {
+        return res.status(400).json({
+            message: "No pending reques found",
+        });
+    }
+
+    const status = await followModel.findByIdAndUpdate(
+        isFollowReqExist._id,
+        { status: "rejected" },
+        { new: true },
+    );
+
+    res.status(200).json({
+        message:'User Unfollwed Successfully',
+        status
+    })
+};
+
+module.exports = {
+    followUserController,
+    unfollowUserController,
+    followAcceptController,
+    followRejectController
+};
