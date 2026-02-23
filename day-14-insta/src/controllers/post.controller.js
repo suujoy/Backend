@@ -2,6 +2,7 @@ const postModel = require("../models/post.models");
 const jwt = require("jsonwebtoken");
 const ImageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
+const likeModel = require("../models/like.model");
 
 const imageKit = new ImageKit({
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
@@ -87,4 +88,63 @@ const getPostDetailsController = async (req, res) => {
     });
 };
 
-module.exports = { createPostController, getPostController,getPostDetailsController };
+
+/**
+ * likePostController
+ */
+
+
+const likePostController = async(req,res)=>{
+    /**
+     * Getting postId and username 
+     */
+
+    const postId  = req.params.postId
+    const username = req.user.username
+
+    /**
+     * Check if post exists in database
+     */
+
+    const post = await postModel.findById(postId)
+
+    if(!post){
+        return res.status(400).json({
+            message:`Post not found with this post id ${postId}`
+        })
+    }
+
+    /**
+     * Check if user already liked that post
+     */
+
+    const isAlreadyLiked = await likeModel.findOne({
+        post:postId,
+        user:username
+    })
+
+    if(isAlreadyLiked){
+        return res.status(400).json({
+            message:'Post is already liked'
+        })
+    }
+
+    /**
+     * Create a like record in the database
+     */
+    const likeRecord = await likeModel.create({
+        post:postId,
+        user:username
+    })
+
+    /***
+     * Sending response
+     */
+
+    res.status(201).json({
+        message:'Post liked successfully',
+        likeRecord
+    })
+}
+
+module.exports = { createPostController, getPostController,getPostDetailsController ,likePostController};

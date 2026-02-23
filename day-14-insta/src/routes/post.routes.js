@@ -1,5 +1,5 @@
 const express = require('express')
-const { createPostController, getPostController, getPostDetailsController } = require('../controllers/post.controller')
+const { createPostController, getPostController, getPostDetailsController, likePostController } = require('../controllers/post.controller')
 const multer = require("multer");
 const identifyUser = require('../middlewares/auth.middleware');
 const upload = multer({ storage: multer.memoryStorage() });
@@ -25,6 +25,12 @@ postRouter.get('/',identifyUser,getPostController)
  */
 
 postRouter.get('/:postId',identifyUser,getPostDetailsController)
+
+/**
+ * @Route POST /api/post/like/postId
+ */
+
+postRouter.post('/like/:postId',identifyUser,likePostController)
 
 
 module.exports= postRouter

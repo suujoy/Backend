@@ -2,17 +2,20 @@ const mongoose = require("mongoose");
 
 const followSchema = new mongoose.Schema(
     {
-        follower: {
-            type: String,
-        },
-
-        followee: {
-            type: String,
-        },
+        follower: String,
+        followee: String,
     },
     { timestamps: true },
 );
 
-const followModel = mongoose.model("Follows", followSchema);
+followSchema.index(
+    {
+        follower: 1,
+        followee: 1,
+    },
+    { unique: true },
+);
+
+const followModel = mongoose.model("Follow", followSchema);
 
 module.exports = followModel;
