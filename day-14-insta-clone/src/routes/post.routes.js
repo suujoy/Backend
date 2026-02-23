@@ -1,29 +1,47 @@
 const express = require("express");
-const { createPostController, getPostController, getPostDetails } = require("../controller/post.controller");
+const {
+    createPostController,
+    getPostController,
+    getPostDetailsController,
+    likePostController,
+} = require("../controllers/post.controller");
 const multer = require("multer");
+const identifyUser = require("../middlewares/auth.middleware");
 const upload = multer({ storage: multer.memoryStorage() });
+
 const postRouter = express.Router();
-const identifyUser = require('../middlewares/auth.middleware')
-
 
 /**
- * POST /api/post
+ * @route POST /api/post/
+ * @description Creates a post using data from req.body
  */
-postRouter.post("/",upload.single('image'), identifyUser,createPostController);
 
+postRouter.post(
+    "/",
+    upload.single("image"),
+    identifyUser,
+    createPostController,
+);
 
 /**
- * GET /api/post
+ * @route GET /api/post/
+ * @description Get all posts from the database
  */
-postRouter.get('/',identifyUser ,getPostController)
 
+postRouter.get("/", identifyUser, getPostController);
 
 /**
- * GET /api/post/details/:postId
- * -return an detail about specific post with the id also check wheather the post belongs to the user that is recuest came from
+ *@route  GET /api/post/:postId
+ * @description Get a single post by its id
  */
 
-postRouter.get('/details/:postId',identifyUser,getPostDetails)
+postRouter.get("/:postId", identifyUser, getPostDetailsController);
 
+/**
+ * @route POST /api/post/like/:postId
+ * @description Like a post with the id porvided in the requist params
+ */
+
+postRouter.post('/like/:postId',identifyUser,likePostController)
 
 module.exports = postRouter;
