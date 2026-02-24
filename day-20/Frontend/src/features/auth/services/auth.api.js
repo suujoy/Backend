@@ -1,0 +1,42 @@
+import axios from "axios";
+
+const api = axios.create({
+    baseURL: "http://localhost:3000/api/auth",
+    withCredentials: true,
+});
+
+export const register = async (email, username, password) => {
+    try {
+        const { data } = await api.post("/register", {
+            username,
+            password,
+            email,
+        });
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const login = async (username, password) => {
+    try {
+        const { data } = await api.post("/login", {
+            username,
+            password,
+        });
+
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getMe = async () => {
+    try {
+        const { data } = await api.get("/get-me");
+
+        return data;
+    } catch (err) {
+        throw err;
+    }
+};
