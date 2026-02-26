@@ -141,4 +141,21 @@ const loginController = async (req, res) => {
     });
 };
 
-module.exports = { registerController, loginController };
+const getMeController = async (req, res) => {
+    const userId = req.user.id;
+
+    const user = await userModel.findById(userId).select("-password");
+
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found",
+        });
+    }
+
+    res.status(200).json({
+        message: "User Fetched Successfully",
+        user,
+    });
+};
+
+module.exports = { registerController, loginController, getMeController };
