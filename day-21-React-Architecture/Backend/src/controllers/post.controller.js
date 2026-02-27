@@ -12,7 +12,7 @@ const imageKit = new ImageKit({
  * Create Post Controller
  */
 const createPostController = async (req, res) => {
-    const userId = req.user.id
+    const userId = req.user.id;
 
     if (!req.file) {
         return res.status(400).json({
@@ -43,9 +43,7 @@ const createPostController = async (req, res) => {
  */
 
 const getPostController = async (req, res) => {
-
-
-    const userId =req.user.id
+    const userId = req.user.id;
 
     const post = await postModel.find({
         user: userId,
@@ -62,8 +60,7 @@ const getPostController = async (req, res) => {
  */
 
 const getPostDetailsController = async (req, res) => {
-
-    const userId =req.user.id
+    const userId = req.user.id;
     const postId = req.params.postId;
 
     const post = await postModel.findById(postId);
@@ -88,30 +85,28 @@ const getPostDetailsController = async (req, res) => {
     });
 };
 
-
 /**
  * likePostController
  */
 
-
-const likePostController = async(req,res)=>{
+const likePostController = async (req, res) => {
     /**
-     * Getting postId and username 
+     * Getting postId and username
      */
 
-    const postId  = req.params.postId
-    const username = req.user.username
+    const postId = req.params.postId;
+    const username = req.user.username;
 
     /**
      * Check if post exists in database
      */
 
-    const post = await postModel.findById(postId)
+    const post = await postModel.findById(postId);
 
-    if(!post){
+    if (!post) {
         return res.status(400).json({
-            message:`Post not found with this post id ${postId}`
-        })
+            message: `Post not found with this post id ${postId}`,
+        });
     }
 
     /**
@@ -119,32 +114,54 @@ const likePostController = async(req,res)=>{
      */
 
     const isAlreadyLiked = await likeModel.findOne({
-        post:postId,
-        user:username
-    })
+        post: postId,
+        user: username,
+    });
 
-    if(isAlreadyLiked){
+    if (isAlreadyLiked) {
         return res.status(400).json({
-            message:'Post is already liked'
-        })
+            message: "Post is already liked",
+        });
     }
 
     /**
      * Create a like record in the database
      */
     const likeRecord = await likeModel.create({
-        post:postId,
-        user:username
-    })
+        post: postId,
+        user: username,
+    });
 
     /***
      * Sending response
      */
 
     res.status(201).json({
-        message:'Post liked successfully',
-        likeRecord
-    })
-}
+        message: "Post liked successfully",
+        likeRecord,
+    });
+};
 
-module.exports = { createPostController, getPostController,getPostDetailsController ,likePostController};
+/**
+ * getFeedController
+ */
+
+const getFeedController = async (req, res) => {
+    const posts = await postModel.find().populate({
+        path: "user",
+        select: "-password",
+    });
+
+    res.status(200).json({
+        message: "Post fetched successfully",
+        posts,
+    });
+};
+
+module.exports = {
+    createPostController,
+    getPostController,
+    getPostDetailsController,
+    likePostController,
+    getFeedController,
+};

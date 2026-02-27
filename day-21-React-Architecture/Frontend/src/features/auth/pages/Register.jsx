@@ -1,10 +1,26 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
+
 
 const Register = () => {
-    const handelSubmit = (event) => {
+    const { user, loading, handelRegister } = useAuth();
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate()
+
+    const handelSubmit = async (event) => {
         event.preventDefault();
+
+        await handelRegister(username, email, password);
+        navigate('/')
+
+        console.log("User Rejestered");
     };
+    if(loading){
+        return <main><h1>Loading......</h1></main>
+    }
 
     return (
         <main>
@@ -16,13 +32,30 @@ const Register = () => {
                     }}
                 >
                     <input
+                        onChange={(event) => {
+                            setUsername(event.target.value);
+                        }}
+                        value={username}
                         type="text"
                         name="username"
                         id="username"
                         placeholder="Enter username"
                     />
-                    <input type="email" name="email" id="email" placeholder="Enter Email" />
                     <input
+                        onChange={(event) => {
+                            setEmail(event.target.value);
+                        }}
+                        value={email}
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter Email"
+                    />
+                    <input
+                        onChange={(event) => {
+                            setPassword(event.target.value);
+                        }}
+                        value={password}
                         type="password"
                         name="password"
                         id="password"
