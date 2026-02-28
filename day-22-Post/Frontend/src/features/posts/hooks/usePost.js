@@ -5,15 +5,15 @@ import { getPost } from "../services/post.api";
 export const usePost = () => {
     const context = useContext(PostContext);
 
-    const { user, setUser, loading, setLoading, post, setPost } = context;
+    const { feed, setFeed, loading, setLoading, post, setPost } = context;
 
-    const handleGetPost = async () => {
+    const handleGetFeed = async () => {
         setLoading(true);
 
-        const { posts } =await getPost();
-        setPost(posts);
+        const { posts } = await getPost();
+        setFeed(posts);
         setLoading(false);
     };
 
-    return { post, loading, user, setUser, handleGetPost };
+    return { post, loading, feed, handleGetFeed };
 };

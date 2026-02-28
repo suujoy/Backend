@@ -5,20 +5,25 @@ import SinglePost from "../components/SinglePost";
 // import Post from "../components/Post";
 
 const Feed = () => {
-    const { post, handleGetPost,loading } = usePost();
+    const { feed, handleGetFeed, loading } = usePost();
 
     const fetchData = async () => {
-        await handleGetPost();
-        console.log("Post fetched");
+        await handleGetFeed();
     };
 
     useEffect(() => {
         fetchData();
-    },[]);
+    }, []);
 
-    if(loading){
-        return <main><h1>Loading......</h1></main>
+    if (loading) {
+        return (
+            <main>
+                <h1>Loading......</h1>
+            </main>
+        );
     }
+
+    console.log(feed)
 
     return (
         <main className="feed-page">
@@ -26,7 +31,7 @@ const Feed = () => {
                 {/**
                  * Single Post
                  */}
-                {post.map((post) => {
+                {feed.map((post) => {
                     return (
                         <SinglePost
                             key={post._id}

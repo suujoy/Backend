@@ -38,10 +38,10 @@ postRouter.get("/", identifyUser, getPostController);
 postRouter.get("/feed", identifyUser, getFeedController);
 
 /**
- * GET /api/post/:postId
+ * GET /api/post/details/:postId
  */
 
-postRouter.get("/:postId", identifyUser, getPostDetailsController);
+postRouter.get("/details/:postId", identifyUser, getPostDetailsController);
 
 /**
  * @Route POST /api/post/like/postId
