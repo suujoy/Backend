@@ -1,7 +1,7 @@
-import '../styles/feed.scss'
+import "../styles/feed.scss";
 
-const SinglePost = ({ post, user }) => {
-    console.log(post)
+const SinglePost = ({ post, user, handleLike, handleUnLike,loading }) => {
+
     return (
         <div className="post">
             <div className="user">
@@ -17,6 +17,11 @@ const SinglePost = ({ post, user }) => {
                 <div className="left">
                     <button className="icon button">
                         <svg
+                            onClick={(event) => {
+                                post.isLiked
+                                    ? handleUnLike(post._id)
+                                    : handleLike(post._id);
+                            }}
                             className={post.isLiked ? "like" : ""}
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

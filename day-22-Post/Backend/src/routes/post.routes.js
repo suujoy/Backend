@@ -5,6 +5,7 @@ const {
     getPostDetailsController,
     likePostController,
     getFeedController,
+    unLikePostController,
 } = require("../controllers/post.controller");
 const multer = require("multer");
 const identifyUser = require("../middlewares/auth.middleware");
@@ -48,5 +49,10 @@ postRouter.get("/details/:postId", identifyUser, getPostDetailsController);
  */
 
 postRouter.post("/like/:postId", identifyUser, likePostController);
+
+/**
+ * @Route POST /api/post/unlike/postId
+ */
+postRouter.post("/unlike/:postId", identifyUser, unLikePostController);
 
 module.exports = postRouter;

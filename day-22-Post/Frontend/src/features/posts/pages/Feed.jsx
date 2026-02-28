@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { usePost } from "../hooks/usePost";
 import "../styles/feed.scss";
 import SinglePost from "../components/SinglePost";
+import Nav from "../../shared/components/Nav";
 // import Post from "../components/Post";
 
 const Feed = () => {
-    const { feed, handleGetFeed, loading } = usePost();
+    const { feed, handleGetFeed, loading, handleLike, handleUnLike } =
+        usePost();
 
     const fetchData = async () => {
         await handleGetFeed();
@@ -15,18 +17,9 @@ const Feed = () => {
         fetchData();
     }, []);
 
-    if (loading) {
-        return (
-            <main>
-                <h1>Loading......</h1>
-            </main>
-        );
-    }
-
-    console.log(feed)
-
     return (
         <main className="feed-page">
+            <Nav />
             <div className="posts">
                 {/**
                  * Single Post
@@ -37,6 +30,9 @@ const Feed = () => {
                             key={post._id}
                             post={post}
                             user={post.user}
+                            handleLike={handleLike}
+                            handleUnLike={handleUnLike}
+                            loading={loading}
                         />
                     );
                 })}
