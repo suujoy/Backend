@@ -14,7 +14,7 @@ const Register = () => {
         event.preventDefault();
 
         await handleRegister(username, email, password);
-        console.log("User Registered Successfull");
+        navigate('/')
     };
 
     if (loading) {

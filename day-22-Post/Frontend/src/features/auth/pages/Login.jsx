@@ -14,7 +14,7 @@ const Login = () => {
         event.preventDefault();
         await handleLogin(username, password);
 
-        console.log("User Logged in");
+        navigate('/')
     };
 
     if (loading) {

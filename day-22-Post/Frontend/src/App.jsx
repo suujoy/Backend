@@ -3,11 +3,14 @@ import { RouterProvider } from "react-router";
 import { router } from "./app.routes";
 import "./features/shared/global.scss";
 import { AuthProvider } from "./features/auth/auth.context";
+import { PostProvider } from "./features/posts/post.context";
 
 const App = () => {
     return (
         <AuthProvider>
-            <RouterProvider router={router} />
+            <PostProvider>
+                <RouterProvider router={router} />
+            </PostProvider>
         </AuthProvider>
     );
 };
