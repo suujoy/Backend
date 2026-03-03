@@ -1,10 +1,22 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import FormGroup from "../components/FormGroup";
 import "../style/login.scss";
+import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
-    const handleSubmit = (event) => {
+    const { handleLogin, loading } = useAuth();
+
+    const navigate = useNavigate()
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        await handleLogin({ email, password });
+        navigate('/')
     };
 
     return (
@@ -17,8 +29,19 @@ const Login = () => {
                         handleSubmit(event);
                     }}
                 >
-                    <FormGroup label="Email" placeholder="Enter Your email" />
                     <FormGroup
+                        value={email}
+                        onChange={(event) => {
+                            setEmail(event.target.value);
+                        }}
+                        label="Email"
+                        placeholder="Enter Your email"
+                    />
+                    <FormGroup
+                        value={password}
+                        onChange={(event) => {
+                            setPassword(event.target.value);
+                        }}
                         label="Password"
                         placeholder="Enter Your Password"
                     />

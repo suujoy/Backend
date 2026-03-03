@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import FormGroup from "../components/FormGroup";
 import "../style/register.scss";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 const Register = () => {
-    const handleSubmit = (event) => {
+    const navigate = useNavigate();
+
+    const { handleRegister, loading } = useAuth();
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        await handleRegister({ username, email, password });
+        navigate("/");
     };
 
     return (
@@ -19,11 +30,20 @@ const Register = () => {
                     }}
                 >
                     <FormGroup
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
                         label="Username"
                         placeholder="Enter Your Username"
                     />
-                    <FormGroup label="Email" placeholder="Enter Your email" />
                     <FormGroup
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        label="Email"
+                        placeholder="Enter Your email"
+                    />
+                    <FormGroup
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
                         label="Password"
                         placeholder="Enter Your Password"
                     />

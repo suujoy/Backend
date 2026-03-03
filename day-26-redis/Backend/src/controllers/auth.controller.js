@@ -93,7 +93,7 @@ const loginController = async (req, res) => {
 
     res.status(200).json({
         message: "User Logged in successfully",
-        safeUser,
+        user: safeUser,
     });
 };
 

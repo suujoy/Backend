@@ -4,7 +4,7 @@ import { login, register } from "./services/auth.api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
     return (
