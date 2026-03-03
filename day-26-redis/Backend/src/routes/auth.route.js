@@ -3,6 +3,7 @@ const {
     registerController,
     loginController,
     getMeController,
+    logoutController,
 } = require("../controllers/auth.controller");
 const identifyUser = require("../middlewares/auth.middlewares");
 
@@ -33,11 +34,9 @@ authRouter.get("/get-me", identifyUser, getMeController);
 
 /**
  * @name Logout User
- * @Route POST /api/auth/logout
+ * @Route GET /api/auth/logout
  * @description This will BlackList the token and clear the token from the browser and logout the user from the site
  */
-authRouter.post('/logout',)
-
-
+authRouter.get("/logout", identifyUser, logoutController);
 
 module.exports = authRouter;
