@@ -1,0 +1,64 @@
+.player {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 720px;
+    margin: 40px auto;
+    padding: 14px;
+    background: #111;
+    color: white;
+    border-radius: 10px;
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+
+    .content {
+        flex: 1;
+    }
+
+    .timeline {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        input {
+            flex: 1;
+        }
+
+        span {
+            width: 40px;
+            text-align: center;
+            font-size: 12px;
+        }
+    }
+
+    .controls {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            background: #222;
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .volume {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            input {
+                width: 90px;
+            }
+        }
+    }
+}
