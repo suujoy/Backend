@@ -6,14 +6,16 @@ const Player = () => {
     const { song } = useSong();
     const audioRef = useRef(null);
 
-    if (!song) return <div className="player">No song loaded</div>;
-
+    
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [volume, setVolume] = useState(1);
     const [currentTime, setCurrentTime] = useState("0:00");
     const [duration, setDuration] = useState("0:00");
+    
+    if (!song) return <div className="player">No song loaded</div>;
 
+    
     const formatTime = (time) => {
         const m = Math.floor(time / 60);
         const s = Math.floor(time % 60)
