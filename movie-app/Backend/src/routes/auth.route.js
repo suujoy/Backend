@@ -18,7 +18,7 @@ const authRouter = express.Router();
  * @description : Register a user
  */
 
-authRouter.post("/register", upload.single("image"), registerController);
+authRouter.post("/register", upload.single("profileImage"), registerController);
 
 /**
  * @name : Login

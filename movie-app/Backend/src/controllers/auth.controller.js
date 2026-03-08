@@ -13,6 +13,7 @@ const registerController = async (req, res) => {
 
     let profileImageFile = null;
 
+
     if (req.file) {
         profileImageFile = await uploadFile({
             buffer: req.file.buffer,
@@ -146,5 +147,5 @@ module.exports = {
     registerController,
     loginController,
     getMeController,
-    logoutController
+    logoutController,
 };

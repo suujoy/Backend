@@ -1,11 +1,11 @@
-const { toFile } = require("@imagekit/nodejs/index.js");
-
+const { toFile } = require("@imagekit/nodejs");
 const ImageKit = require("@imagekit/nodejs").default;
 
 const client = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
-
 const uploadFile = async ({ buffer, filename, folder }) => {
     const file = await client.files.upload({
         file: await toFile(Buffer.from(buffer)),
