@@ -1,0 +1,54 @@
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #1a0000, #050505);
+    font-family: Arial, sans-serif;
+
+    .home-container {
+        text-align: center;
+        padding: 50px 60px;
+        background: #0d0d0d;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 0, 0, 0.25);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        animation: floatCard 0.8s ease;
+
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            animation: fadeText 1.2s ease;
+        }
+
+        p {
+            color: #b5b5b5;
+            font-size: 16px;
+            animation: fadeText 1.6s ease;
+        }
+    }
+}
+
+@keyframes floatCard {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeText {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,83 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #1a0000, #050505);
+    font-family: Arial, sans-serif;
+}
+
+.login-card {
+    width: 380px;
+
+    padding: 40px;
+    background: #0d0d0d;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
+    animation: cardFade 0.7s ease;
+
+    h1 {
+        color: #ffffff;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        color: #888;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+
+    .input-group {
+        margin-bottom: 18px;
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 6px;
+            background: #3a3a3a;
+            color: #f2f2f2;
+            font-size: 16px;
+            outline: none;
+            border: 1px solid #2a2a2a;
+            transition: all 0.25s ease;
+            font-weight: 600;
+
+            &::placeholder {
+                color: #9a9a9a;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+    .auth-switch {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #b5b5b5;
+
+        a {
+            color: #ff2a2a;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 4px;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #ff4d4d;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+@keyframes cardFade {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
