@@ -1,15 +1,14 @@
-import React from "react";
-import "../styles/home.scss";
+import React from 'react'
+import './home.scss'
+import { useMovie } from '../../movie/hooks/useMovie'
+import { useEffect } from 'react'
 
 const Home = () => {
   return (
-    <main className="home-page">
-      <div className="home-container">
-        <h1>Welcome Home</h1>
-        <p>This is your dashboard</p>
-      </div>
-    </main>
-  );
-};
+    <div>
+      
+    </div>
+  )
+}
 
-export default Home;
+export default Home
