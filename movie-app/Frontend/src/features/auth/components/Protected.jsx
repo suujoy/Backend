@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router";
+import Loading from "../../../shared/components/Loading";
 
 const Protected = ({ children }) => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Protected = ({ children }) => {
     }
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     return children;
 };
