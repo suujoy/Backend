@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useMovie } from "../hooks/useMovie";
 import MovieCard from "../components/MovieCard";
-import "../styles/tvShow.scss";
+import "../styles/popularMovie.scss";
 
-const TvShow = () => {
-    const { movies, loading, handlePopularTv } = useMovie();
+const PopularMovie = () => {
+    const { movies, loading, handlePopularMovies } = useMovie();
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        handlePopularTv(page);
+        handlePopularMovies(page);
     }, [page]);
 
     useEffect(() => {
@@ -27,23 +27,27 @@ const TvShow = () => {
     }, []);
 
     return (
-        <section className="tv-show-page">
+        <section className="popular-movie-page">
 
-            <div className="tv-header">
-                <h1>Popular TV Shows</h1>
-                <p>Discover trending series and television content</p>
+            <div className="popular-header">
+                <h1>Popular Movies</h1>
+                <p>Discover trending movies loved by audiences</p>
             </div>
 
-            <div className="tv-grid">
-                {movies.map((show) => (
-                    <MovieCard key={show.id} movie={show} />
+            <div className="popular-grid">
+                {movies.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
                 ))}
             </div>
 
-            {loading && <p className="tv-loading">Loading more TV shows...</p>}
+            {loading && (
+                <p className="popular-loading">
+                    Loading more movies...
+                </p>
+            )}
 
         </section>
     );
 };
 
-export default TvShow;
+export default PopularMovie;

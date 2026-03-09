@@ -10,7 +10,8 @@ export const MovieProvider = ({ children }) => {
     const [recommendations, setRecommendations] = useState([]);
     const [trailer, setTrailer] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const [personDetails, setPersonDetails] = useState(null);
+    
     return (
         <MovieContext.Provider
             value={{
@@ -28,6 +29,8 @@ export const MovieProvider = ({ children }) => {
                 setTrailer,
                 loading,
                 setLoading,
+                personDetails,
+                setPersonDetails
             }}
         >
             {children}

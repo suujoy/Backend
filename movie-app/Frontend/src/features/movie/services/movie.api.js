@@ -14,8 +14,10 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 /**
  * Trending Movis by day
  */
-export const trending = async () => {
-    const { data } = await api.get(`/trending/all/day?api_key=${apiKey}`);
+export const trending = async (page = 1) => {
+    const { data } = await api.get(
+        `/trending/all/day?api_key=${apiKey}&page=${page}`,
+    );
     return data;
 };
 
@@ -32,13 +34,12 @@ export const popularMovies = async (page = 1) => {
 /**
  * For play youtube trailer for the movie
  */
-export const getMovieTrailer = async (movieId) => {
+export const getMovieTrailer = async (id, type = "movie") => {
     const { data } = await api.get(
-        `/movie/${movieId}/videos?api_key=${apiKey}`,
+        `/${type}/${id}/videos?api_key=${apiKey}`
     );
     return data;
 };
-
 /**
  * movie credits to show actors of a movie
  */
@@ -69,8 +70,10 @@ export const popularTv = async () => {
  * people or actors
  */
 
-export const popularPeople = async () => {
-    const { data } = await api.get(`/person/popular?api_key=${apiKey}`);
+export const popularPeople = async (page = 1) => {
+    const { data } = await api.get(
+        `/person/popular?api_key=${apiKey}&page=${page}`
+    );
     return data;
 };
 
@@ -103,5 +106,39 @@ export const multiSearch = async (query) => {
     const { data } = await api.get(
         `/search/multi?api_key=${apiKey}&query=${query}`,
     );
+    return data;
+};
+
+/**
+ * Actor based movie search tv show
+ */
+
+export const getPersonCredits = async (personId) => {
+    const { data } = await api.get(
+        `/person/${personId}/combined_credits?api_key=${apiKey}`,
+    );
+    return data;
+};
+
+/**
+ * Similer Movies
+ */
+
+export const getSimilarMovies = async (movieId) => {
+    const { data } = await api.get(
+        `/movie/${movieId}/similar?api_key=${apiKey}`,
+    );
+    return data;
+};
+
+/**
+ * actor details
+ */
+
+export const getPersonDetails = async (personId) => {
+    if (!personId) return null;
+    const { data } = await api.get(`/person/${personId}`, {
+        params: { api_key: apiKey },
+    });
     return data;
 };

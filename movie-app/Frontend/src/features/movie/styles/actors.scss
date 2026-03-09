@@ -1,0 +1,39 @@
+.actors-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #020c18, #010409);
+    padding: 40px 20px;
+    color: #d6e8ff;
+
+    .actors-header {
+        max-width: 1200px;
+        margin: auto;
+        margin-bottom: 30px;
+
+        h1 {
+            font-size: 36px;
+            color: #4ea3ff;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: #9fc4ff;
+            font-size: 15px;
+        }
+    }
+
+    .actors-grid {
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 24px;
+    }
+
+    .actors-loading {
+        text-align: center;
+        margin-top: 120px;
+        color: #6bb7ff;
+        font-size: 18px;
+    }
+}

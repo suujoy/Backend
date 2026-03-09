@@ -11,6 +11,9 @@ import {
     getMovieImages,
     getRecommendations,
     multiSearch,
+    getPersonCredits,
+    getSimilarMovies,
+    getPersonDetails,
 } from "../services/movie.api";
 
 export const useMovie = () => {
@@ -31,16 +34,18 @@ export const useMovie = () => {
         setTrailer,
         loading,
         setLoading,
+        personDetails,
+        setPersonDetails,
     } = context;
 
     /**
      * handleTrending
      */
-    const handleTrending = async () => {
+    const handleTrending = async (page = 1) => {
         setLoading(true);
         try {
-            const { results } = await trending();
-            setMovies(results);
+            const { results } = await trending(page);
+            setMovies((prev) => [...prev, ...results]);
         } catch (err) {
             console.log(err);
         } finally {
@@ -51,11 +56,11 @@ export const useMovie = () => {
     /**
      * handlePopularMovies
      */
-    const handlePopularMovies = async (page) => {
+    const handlePopularMovies = async (page = 1) => {
         setLoading(true);
         try {
             const { results } = await popularMovies(page);
-            setMovies(results);
+            setMovies((prev) => [...prev, ...results]);
         } catch (err) {
             console.log(err);
         } finally {
@@ -66,10 +71,10 @@ export const useMovie = () => {
     /**
      * handleGetMovieTrailer
      */
-    const handleGetMovieTrailer = async (movieId) => {
+    const handleGetMovieTrailer = async (id, type = "movie") => {
         setLoading(true);
         try {
-            const { results } = await getMovieTrailer(movieId);
+            const { results } = await getMovieTrailer(id, type);
             setTrailer(results);
         } catch (err) {
             console.log(err);
@@ -156,11 +161,11 @@ export const useMovie = () => {
     /**
      * handlePopularTv
      */
-    const handlePopularTv = async (page) => {
+    const handlePopularTv = async (page = 1) => {
         setLoading(true);
         try {
             const { results } = await popularTv(page);
-            setMovies(results);
+            setMovies((prev) => [...prev, ...results]);
         } catch (err) {
             console.log(err);
         } finally {
@@ -171,11 +176,60 @@ export const useMovie = () => {
     /**
      * handlePopularPeople
      */
-    const handlePopularPeople = async (page) => {
+    const handlePopularPeople = async (page = 1) => {
         setLoading(true);
         try {
             const { results } = await popularPeople(page);
-            setMovies(results);
+            setMovies((prev) => [...prev, ...results]);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /**
+     * handleGetPersonCredits
+     */
+    const handleGetPersonCredits = async (personId) => {
+        setLoading(true);
+        try {
+            const data = await getPersonCredits(personId);
+
+            const filtered = data.cast.filter((item) => item.poster_path);
+
+            setMovies(filtered);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /**
+     * handleGetSimilarMovies
+     */
+    const handleGetSimilarMovies = async (movieId) => {
+        setLoading(true);
+        try {
+            const { results } = await getSimilarMovies(movieId);
+            setRecommendations(results);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /**
+     * handleGetPersonDetails
+     */
+
+    const handleGetPersonDetails = async (personId) => {
+        setLoading(true);
+        try {
+            const data = await getPersonDetails(personId);
+            setPersonDetails(data);
         } catch (err) {
             console.log(err);
         } finally {
@@ -185,6 +239,7 @@ export const useMovie = () => {
 
     return {
         loading,
+        personDetails,
         movies,
         movieDetails,
         credits,
@@ -201,5 +256,8 @@ export const useMovie = () => {
         handleMultiSearch,
         handlePopularTv,
         handlePopularPeople,
+        handleGetPersonCredits,
+        handleGetSimilarMovies,
+        handleGetPersonDetails,
     };
 };

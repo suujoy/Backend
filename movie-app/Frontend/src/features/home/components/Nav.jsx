@@ -1,7 +1,18 @@
 import { Link } from "react-router";
+import { useState } from "react";
+import { useMovie } from "../../movie/hooks/useMovie";
 import "../styles/nav.scss";
 
 const Nav = () => {
+    const [query, setQuery] = useState("");
+    const { handleMultiSearch } = useMovie();
+
+    const handleSearch = () => {
+        if (query.trim()) {
+            handleMultiSearch(query);
+        }
+    };
+
     return (
         <nav className="nav">
             <div className="nav-container">
@@ -17,10 +28,10 @@ const Nav = () => {
                         <Link to="/movies">Movies</Link>
                     </li>
                     <li>
-                        <Link to="/tv">TV Shows</Link>
+                        <Link to="/tv-shows">TV Shows</Link>
                     </li>
                     <li>
-                        <Link to="/people">People</Link>
+                        <Link to="/actors">Actors</Link>
                     </li>
                 </ul>
 
@@ -28,7 +39,10 @@ const Nav = () => {
                     <input
                         type="text"
                         placeholder="Search movies, tv, actors..."
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
+                    <button onClick={handleSearch}>Search</button>
                 </div>
             </div>
         </nav>

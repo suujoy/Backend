@@ -1,33 +1,41 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "../styles/home.scss";
 import { useMovie } from "../../movie/hooks/useMovie";
-import { useEffect } from "react";
-import Nav from "../components/Nav";
+import MovieCard from "../../movie/components/MovieCard";
 
 const Home = () => {
     const { movies, loading, handleTrending } = useMovie();
+    const [page, setPage] = useState(1);
+
     useEffect(() => {
-        handleTrending();
+        handleTrending(page);
+    }, [page]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const bottom =
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 200;
+
+            if (bottom) {
+                setPage((prev) => prev + 1);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
     return (
         <main className="home">
-            <Nav />
+            <div className="movie-grid">
+                {movies.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                ))}
+            </div>
 
-            {loading && <p>Loading...</p>}
-
-            {!loading && (
-                <div className="movie-grid">
-                    {movies.map((movie) => (
-                        <div key={movie.id}>
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title || movie.name}
-                            />
-                            <h3>{movie.title || movie.name}</h3>
-                        </div>
-                    ))}
-                </div>
-            )}
+            {loading && <p>Loading more movies...</p>}
         </main>
     );
 };

@@ -1,0 +1,32 @@
+.similar-movie {
+    margin-top: 50px;
+    max-width: 70vw;
+    margin: auto;
+
+    .similar-title {
+        font-size: 24px;
+        color: #ff2b2b;
+        margin-bottom: 20px;
+    }
+
+    .similar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .movie-card {
+        transform: scale(0.95);
+        transition: transform 0.2s ease;
+    }
+
+    .movie-card:hover {
+        transform: scale(1);
+    }
+}
+
+.similar-loading {
+    margin-top: 30px;
+    color: #e0e0e0;
+    font-size: 16px;
+}

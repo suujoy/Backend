@@ -1,0 +1,48 @@
+.popular-movie-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #02150b, #010705);
+    padding: 40px 20px;
+    color: #e3ffe9;
+
+    .popular-header {
+        max-width: 1200px;
+        margin: auto;
+        margin-bottom: 30px;
+
+        h1 {
+            font-size: 36px;
+            color: #3ddc84;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #9ee7b5;
+        }
+    }
+
+    .popular-grid {
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 26px;
+    }
+
+    .popular-loading {
+        text-align: center;
+        margin-top: 120px;
+        color: #7fe3a4;
+        font-size: 18px;
+    }
+
+    .movie-card {
+        border: 1px solid rgba(60, 220, 130, 0.25);
+
+        &:hover {
+            border-color: rgba(60, 220, 130, 0.55);
+        }
+    }
+}
