@@ -20,7 +20,7 @@ type AIBATTLESTATE = {
 };
 
 
-coonst state: AIBATTLESTATE = {
+const state: AIBATTLESTATE = {
     messages: MessagesValue,
     solution_1: "",
     solution_2: "",
