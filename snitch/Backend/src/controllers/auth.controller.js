@@ -2,7 +2,7 @@ import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 
-const sendToken = (user, res) => {
+const sendTokenResponse = (user, res, message) => {
     const token = jwt.sign(
         {
             id: user._id,
@@ -12,10 +12,24 @@ const sendToken = (user, res) => {
             expiresIn: "7d",
         },
     );
+
+    res.cookie("token", token);
+
+    res.status(200).json({
+        message,
+        success: true,
+        user: {
+            id: user._id,
+            email: user.email,
+            fullName: user.fullName,
+            contact: user.contact,
+            role: user.role,
+        },
+    });
 };
 
-export const registerUser = async (req, res, next) => {
-    const { email, contact, password, fullName } = req.body;
+export const register = async (req, res) => {
+    const { email, contact, password, fullName, isSeller } = req.body;
 
     try {
         const existingUser = await userModel.findOne({
@@ -31,7 +45,10 @@ export const registerUser = async (req, res, next) => {
             contact,
             password,
             fullName,
+            role: isSeller ? "seller" : "buyer",
         });
+
+        await sendTokenResponse(user, res, "User registered successfully");
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal server error" });

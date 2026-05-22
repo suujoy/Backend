@@ -34,5 +34,9 @@ export const validateRegisterUser = [
         .isIn(["buyer", "seller", "admin"])
         .withMessage("Role must be either buyer, seller, or admin."),
 
+    body("isSeller")
+        .isBoolean()
+        .withMessage("isSeller must be a boolean value."),
+
     validateRequest,
 ];

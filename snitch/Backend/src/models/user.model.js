@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ["buyer", "seller", "admin"],
-        default: "user",
+        default: "buyer",
     },
 });
 
