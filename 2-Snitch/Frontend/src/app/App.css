@@ -1,1 +1,26 @@
-@import 'tailwindcss'
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF5722;
+  --color-secondary: #00B4D8;
+  --color-bg-main: #F3F4F6;
+  --color-text-main: #111827;
+  
+  --color-input-border: #E5E7EB;
+  --color-input-bg: #FFFFFF;
+}
+
+.dark {
+  --color-primary: #FF6F61;
+  --color-secondary: #00F5D4;
+  --color-bg-main: #0D0E12;
+  --color-text-main: #E5E7EB;
+  
+  --color-input-border: #1E2028;
+  --color-input-bg: #16171D;
+}
+
+/* Base transitions for seamless dark/light mode */
+html, body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
