@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Input from '../components/Input';
 import ThemeToggle from '../../theme/components/ThemeToggle';
+import { Link } from 'react-router';
 
 const Register = () => {
     const { handleRegister, loading, error } = useAuth();
+    const [passwordError, setPasswordError] = useState("");
     const [success, setSuccess] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ const Register = () => {
         email: '',
         contact: '',
         password: '',
+        confirmPassword: "",
         isSeller: false,
         isAdmin: false,
     });
@@ -26,8 +29,18 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (formData.password !== formData.confirmPassword) {
+            setPasswordError("Passwords do not match");
+            return;
+        }
+
+        setPasswordError("");
+
         try {
-            await handleRegister(formData);
+            const { confirmPassword, ...dataToSend } = formData;
+
+            await handleRegister(dataToSend);
             setSuccess(true);
         } catch (err) {
             console.error("Registration error:", err);
@@ -120,6 +133,21 @@ const Register = () => {
                                 required
                             />
 
+                            <Input
+                                label="Confirm Password"
+                                type="password"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                id="confirmPassword"
+                                required
+                            />
+
+                            {passwordError && (
+                                <p className="text-sm text-red-500">{passwordError}</p>
+                            )}
+
                             {/* Checkboxes Row */}
                             <div className="flex flex-col gap-3 mt-1 sm:flex-row sm:justify-between">
                                 <label className="flex items-center gap-3 cursor-pointer select-none group">
@@ -135,18 +163,6 @@ const Register = () => {
                                     </span>
                                 </label>
 
-                                <label className="flex items-center gap-3 cursor-pointer select-none group">
-                                    <input
-                                        type="checkbox"
-                                        name="isAdmin"
-                                        checked={formData.isAdmin}
-                                        onChange={handleChange}
-                                        className="appearance-none w-5 h-5 rounded-lg border border-input-border bg-input-bg checked:bg-primary checked:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-300 cursor-pointer flex items-center justify-center relative after:content-[''] after:hidden checked:after:block after:w-1.5 after:h-2.5 after:border-r-2 after:border-b-2 after:border-white after:rotate-45 after:-translate-y-0.5"
-                                    />
-                                    <span className="text-xs font-semibold text-text-main/70 group-hover:text-text-main transition-colors duration-200">
-                                        Register as Admin
-                                    </span>
-                                </label>
                             </div>
 
                             <button
@@ -168,6 +184,17 @@ const Register = () => {
                             </button>
                         </form>
                     )}
+
+                    {/* Login Link */}
+                    <p className="mt-6 text-center text-sm text-text-main/50 font-medium">
+                        Already have an account?{' '}
+                        <Link
+                            to="/login"
+                            className="text-primary font-semibold hover:text-primary/80 transition-colors duration-200"
+                        >
+                            Sign In
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
