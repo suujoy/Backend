@@ -74,11 +74,11 @@ export const register = async (req, res, next) => {
 
 
 export const login = async (req, res, next) => {
-    const { email, contact, password } = req.body;
+    const { identifier, password } = req.body;
 
     try {
         const user = await userModel.findOne({
-            $or: [{ email }, { contact }]
+            $or: [{ email: identifier }, { contact: identifier }]
         })
 
         if (!user) {

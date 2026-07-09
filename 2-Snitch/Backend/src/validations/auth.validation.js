@@ -49,24 +49,17 @@ export const validateRegister = [
 
     body('isSeller')
         .isBoolean().withMessage('isSeller must be a boolean'),
-        
+
 
     validate,
 ];
 
 
 export const validateLogin = [
-    body("email")
-        .optional()
+    body("identifier")
         .trim()
-        .isEmail()
-        .withMessage("Please enter a valid email"),
-
-    body("contact")
-        .optional()
-        .trim()
-        .isMobilePhone("en-IN")
-        .withMessage("Please enter a valid contact number"),
+        .notEmpty()
+        .withMessage("Email or contact number is required"),
 
     body("password")
         .trim()
@@ -74,13 +67,6 @@ export const validateLogin = [
         .withMessage("Password is required")
         .isLength({ min: 6 })
         .withMessage("Password must be at least 6 characters long"),
-
-    body().custom((value, { req }) => {
-        if (!req.body.email && !req.body.contact) {
-            throw new Error("Email or contact number is required");
-        }
-        return true;
-    }),
 
     validate,
 ];

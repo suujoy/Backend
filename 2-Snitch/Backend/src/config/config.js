@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-if (!process.env.PORT) { 
+if (!process.env.PORT) {
     throw new Error("PORT is not defined in environment variables.");
 }
 
@@ -18,8 +18,13 @@ if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables.");
 }
 
+if (!process.env.ORIGIN_URL) {
+    throw new Error("ORIGIN_URL is not defined in environment variables.");
+}
+
 export const config = {
     PORT: process.env.PORT || 5000,
+    ORIGIN_URL: process.env.ORIGIN_URL,
     NODE_ENVIRONMENT: process.env.NODE_ENVIRONMENT,
     MONGO_URI: process.env.MONGO_URI,
     JWT_SECRET: process.env.JWT_SECRET,
